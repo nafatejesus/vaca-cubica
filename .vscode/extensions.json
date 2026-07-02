@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "usernamehw.errorlens",
+    "bradlc.vscode-tailwindcss",
+    "ms-python.python",
+    "humao.rest-client"
+  ]
+}
