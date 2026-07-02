@@ -74,12 +74,18 @@ code .
 
 # Navega al contenedor del cliente
 
+```bash
 cd frontend
+```
 
 # Instala el árbol de dependencias usando pnpm
 
+```bash
 pnpm install
+```
 
 # Levanta el servidor de desarrollo (Vite)
 
+```bash
 pnpm dev
+```
