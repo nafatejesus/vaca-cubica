@@ -52,7 +52,9 @@ pnpm --version
 ## 🚀 FASE 3: CLONACIÓN Y WORKSPACE
 
 git clone [https://github.com/RyuheiRG/vaca-cubica](https://github.com/TU_USUARIO/vaca-cubica.git)
+
 cd vaca-cubica
+
 code .
 
 ---
