@@ -51,7 +51,7 @@
 }
 
 .edit-btn {
-  background-color: #e0e0e0;
+background-color: var(--brand-green);
 }
 
 .delete-btn {

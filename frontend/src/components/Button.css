@@ -41,3 +41,13 @@
   font-size: 1.1rem;
   line-height: 1;
 }
+
+.btn-secondary {
+  background-color: #f1f3f5;
+  color: var(--text-primary);
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef;
+}
