@@ -1,11 +1,4 @@
-const bovinoOptions = ["VC-101", "VC-102", "VC-103", "VC-104", "VC-105"];
-const clienteOptions = [
-  "Agro El Sol",
-  "Rancho La Fortuna",
-  "Ganadera del Norte",
-];
-
-const VentaForm = ({values, onChange}) => {
+const VentaForm = ({values, onChange, bovinos = [], clientes = []}) => {
   return (
     <>
       <div className="form-row">
@@ -16,9 +9,9 @@ const VentaForm = ({values, onChange}) => {
             onChange={(e) => onChange("idBovino", e.target.value)}
           >
             <option value="">Seleccionar...</option>
-            {bovinoOptions.map((id) => (
-              <option key={id} value={id}>
-                {id}
+            {bovinos.map((b) => (
+              <option key={b.codigo} value={b.codigo}>
+                {b.codigo} — {b.nombre}
               </option>
             ))}
           </select>
@@ -26,13 +19,13 @@ const VentaForm = ({values, onChange}) => {
         <label>
           Cliente (Nombre / Empresa)
           <select
-            value={values.nombreCliente}
-            onChange={(e) => onChange("nombreCliente", e.target.value)}
+            value={values.idCliente}
+            onChange={(e) => onChange("idCliente", e.target.value)}
           >
             <option value="">Buscar Cliente...</option>
-            {clienteOptions.map((nombre) => (
-              <option key={nombre} value={nombre}>
-                {nombre}
+            {clientes.map((c) => (
+              <option key={c.idCliente} value={c.idCliente}>
+                {c.nombre}
               </option>
             ))}
           </select>

@@ -1,8 +1,3 @@
-/**
- * Formulario genérico: recibe una lista de campos y arma los inputs solo.
- * fields: [{ key, label, type: "text"|"number"|"select"|"textarea", options?, placeholder? }]
- * Se usa dentro de <Modal>, así que hereda el estilo de .modal-body en Modal.css
- */
 const DynamicForm = ({fields, values, onChange}) => {
   return (
     <>
@@ -15,11 +10,15 @@ const DynamicForm = ({fields, values, onChange}) => {
               onChange={(e) => onChange(field.key, e.target.value)}
             >
               <option value="">Seleccionar...</option>
-              {field.options.map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
+              {field.options.map((opt) => {
+                const value = typeof opt === "object" ? opt.value : opt;
+                const label = typeof opt === "object" ? opt.label : opt;
+                return (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                );
+              })}
             </select>
           ) : field.type === "textarea" ? (
             <textarea

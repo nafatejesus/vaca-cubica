@@ -8,8 +8,10 @@ import StatCard from "../components/StatCard";
 import FilterBar from "../components/FilterBar";
 import Pagination from "../components/Pagination";
 import DynamicForm from "../components/DynamicForm";
-import "./Bovinos.css";
+import {useBovinos} from "../context/BovinosContext";
+import {useRazas} from "../context/RazasContext";
 import BovinoIcon from "../assets/bovino.png";
+import "./Bovinos.css";
 
 const PAGE_SIZE = 5;
 
@@ -34,124 +36,6 @@ const columns = [
   {key: "estado", label: "Estado", badge: true},
 ];
 
-const formFields = [
-  {key: "nombre", label: "Nombre"},
-  {key: "codigo", label: "Código", placeholder: "B-006"},
-  {key: "tipoRaza", label: "Raza"},
-  {key: "sexo", label: "Sexo", type: "select", options: ["Macho", "Hembra"]},
-  {key: "edad", label: "Edad", placeholder: "3 años"},
-  {key: "peso", label: "Peso", placeholder: "450 kg"},
-  {
-    key: "estado",
-    label: "Estado",
-    type: "select",
-    options: ["Saludable", "En Observación", "Enfermo"],
-  },
-];
-
-const initialBovinos = [
-  {
-    id: 1,
-    codigo: "B-001",
-    nombre: "Esperanza",
-    tipoRaza: "Holstein",
-    sexo: "Hembra",
-    edad: "3 años",
-    peso: "450 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 2,
-    codigo: "B-002",
-    nombre: "Tornado",
-    tipoRaza: "Brahman",
-    sexo: "Macho",
-    edad: "5 años",
-    peso: "620 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 3,
-    codigo: "B-003",
-    nombre: "Luna",
-    tipoRaza: "Simmental",
-    sexo: "Hembra",
-    edad: "2 años",
-    peso: "380 kg",
-    estado: "En Observación",
-  },
-  {
-    id: 4,
-    codigo: "B-004",
-    nombre: "Dulce",
-    tipoRaza: "Angus",
-    sexo: "Hembra",
-    edad: "4 años",
-    peso: "480 kg",
-    estado: "Enfermo",
-  },
-  {
-    id: 5,
-    codigo: "B-005",
-    nombre: "Fuerte",
-    tipoRaza: "Brahman",
-    sexo: "Macho",
-    edad: "6 años",
-    peso: "680 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 6,
-    codigo: "B-006",
-    nombre: "Estrella",
-    tipoRaza: "Holstein",
-    sexo: "Hembra",
-    edad: "3 años",
-    peso: "420 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 7,
-    codigo: "B-007",
-    nombre: "Rayo",
-    tipoRaza: "Charolais",
-    sexo: "Macho",
-    edad: "4 años",
-    peso: "560 kg",
-    estado: "En Observación",
-  },
-  {
-    id: 8,
-    codigo: "B-008",
-    nombre: "Nube",
-    tipoRaza: "Angus",
-    sexo: "Hembra",
-    edad: "2 años",
-    peso: "390 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 9,
-    codigo: "B-009",
-    nombre: "Tormenta",
-    tipoRaza: "Brahman",
-    sexo: "Macho",
-    edad: "5 años",
-    peso: "650 kg",
-    estado: "Saludable",
-  },
-  {
-    id: 10,
-    codigo: "B-010",
-    nombre: "Perla",
-    tipoRaza: "Simmental",
-    sexo: "Hembra",
-    edad: "1 año",
-    peso: "320 kg",
-    estado: "En Observación",
-  },
-];
-
 const emptyBovino = {
   nombre: "",
   codigo: "",
@@ -163,7 +47,29 @@ const emptyBovino = {
 };
 
 const Bovinos = () => {
-  const [bovinos, setBovinos] = useState(initialBovinos);
+  const {bovinos, setBovinos} = useBovinos();
+  const {razas} = useRazas();
+
+  const formFields = [
+    {key: "nombre", label: "Nombre"},
+    {key: "codigo", label: "Código", placeholder: "B-006"},
+    {
+      key: "tipoRaza",
+      label: "Raza",
+      type: "select",
+      options: razas.map((r) => r.nombre),
+    },
+    {key: "sexo", label: "Sexo", type: "select", options: ["Macho", "Hembra"]},
+    {key: "edad", label: "Edad", placeholder: "3 años"},
+    {key: "peso", label: "Peso", placeholder: "450 kg"},
+    {
+      key: "estado",
+      label: "Estado",
+      type: "select",
+      options: ["Saludable", "En Observación", "Enfermo"],
+    },
+  ];
+
   const [search, setSearch] = useState("");
   const [filterValues, setFilterValues] = useState({});
   const [page, setPage] = useState(1);
@@ -180,14 +86,6 @@ const Bovinos = () => {
       key: "estado",
       placeholder: "Estado",
       options: ["Saludable", "En Observación", "Enfermo"],
-    },
-  ];
-
-  const moreFilters = [
-    {
-      key: "tipoRaza",
-      placeholder: "Raza",
-      options: ["Holstein", "Brahman", "Simmental", "Angus"],
     },
   ];
 
@@ -307,7 +205,6 @@ const Bovinos = () => {
         onSearchChange={handleSearchChange}
         searchPlaceholder="Buscar por nombre o código..."
         filters={filters}
-        moreFilters={moreFilters}
         filterValues={filterValues}
         onFilterChange={handleFilterChange}
       />
