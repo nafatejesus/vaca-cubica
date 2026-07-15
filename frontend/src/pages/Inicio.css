@@ -1,0 +1,242 @@
+.inicio-banner {
+  background: linear-gradient(135deg, #1a2e1a 0%, var(--brand-green) 140%);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  color: #ffffff;
+}
+
+.inicio-banner-date {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 0.4rem;
+}
+
+.inicio-banner h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.inicio-banner p {
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.inicio-banner-tags {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.inicio-tag {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.inicio-charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.inicio-bottom-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+  .inicio-charts-row,
+  .inicio-bottom-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-card {
+  background: #ffffff;
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-card-header h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.info-card-count {
+  background: #fde8ec;
+  color: var(--danger-red);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
+/* Alertas */
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 0.75rem;
+}
+
+.alert-item.warning {
+  background: #fff8e6;
+}
+
+.alert-item.danger {
+  background: #fde8ec;
+}
+
+.alert-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #666;
+}
+
+.alert-item-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.alert-item-meta {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.alert-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.3rem;
+}
+
+.info-list-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.info-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.info-list-item:last-child {
+  border-bottom: none;
+}
+
+.info-list-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.info-list-sub {
+  font-size: 0.78rem;
+  color: #999;
+}
+
+.info-list-date {
+  background: #f1f3f5;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Resumen financiero */
+.finance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.finance-row:last-child {
+  border-bottom: none;
+}
+
+.finance-label {
+  color: #777;
+}
+
+.finance-value {
+  font-weight: 700;
+}
+
+.finance-value.positive {
+  color: var(--brand-green);
+}
+
+.finance-value.warning {
+  color: #b45309;
+}
+
+/* Actividad reciente */
+.activity-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-icon.danger { background: #fde8ec; color: var(--danger-red); }
+.activity-icon.success { background: #e8f5e9; color: var(--brand-green); }
+.activity-icon.warning { background: #fff4e5; color: #b45309; }
+
+.activity-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.activity-time {
+  font-size: 0.78rem;
+  color: #aaa;
+  margin-top: 0.15rem;
+}
