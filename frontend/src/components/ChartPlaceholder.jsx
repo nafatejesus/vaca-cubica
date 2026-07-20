@@ -1,11 +1,6 @@
 import {BarChart3} from "lucide-react";
 import "./ChartPlaceholder.css";
 
-/**
- * Espacio reservado para una gráfica futura (ej. generada con Python).
- * title/subtitle: encabezado de la tarjeta, igual que las demás tarjetas.
- * height: alto del área de la gráfica en px.
- */
 const ChartPlaceholder = ({title, subtitle, badge, height = 220}) => {
   return (
     <div className="chart-card">

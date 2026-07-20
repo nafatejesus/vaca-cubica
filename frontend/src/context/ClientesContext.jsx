@@ -28,7 +28,6 @@ export const ClientesProvider = ({children}) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useClientes = () => {
   const ctx = useContext(ClientesContext);
   if (!ctx)
