@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import "./Layout.css";
 
 import VacaCubicaLogo from "../assets/vaca-cubica-icon.png";
@@ -14,8 +14,6 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Aquí implementaremos la destrucción del JWT más adelante.
-    // Por ahora, solo expulsa al usuario al login.
     navigate("/login");
   };
 
@@ -29,9 +27,7 @@ const Layout = () => {
         </div>
 
         <nav className="sidebar-nav">
-          {/* 
-            NavLink inyecta la clase 'active' automáticamente.
-          */}
+          {}
           <NavLink to="/" className="nav-item">
             <span className="icon">
               <img src={InicioIcon} alt="Inicio" />
@@ -80,12 +76,10 @@ const Layout = () => {
         </div>
       </aside>
 
-      {/* LIENZO CENTRAL DINÁMICO */}
+      {}
       <main className="main-content">
         <div className="content-wrapper">
-          {/* 
-            Aquí React Router inyectará las pantallas creadas.
-          */}
+          {}
           <Outlet />
         </div>
       </main>

@@ -146,3 +146,21 @@
   border-top: 1px solid #eee;
   margin-top: 0.5rem;
 }
+
+
+
+
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    max-width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
