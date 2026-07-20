@@ -2,11 +2,6 @@ import {useState} from "react";
 import {Search, Filter, ChevronDown} from "lucide-react";
 import "./FilterBar.css";
 
-/**
- * Barra de búsqueda + filtros por dropdown, reutilizable.
- * filters: filtros siempre visibles [{ key, placeholder, options: [] }]
- * moreFilters: filtros que aparecen al hacer clic en "Más filtros" (mismo formato)
- */
 const FilterBar = ({
   search,
   onSearchChange,
