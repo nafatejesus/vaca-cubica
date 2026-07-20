@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from app.core.database import engine
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -35,13 +37,31 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+origenes_permitidos = [
+    "http://localhost:5173",
+    "https://vaca-cubica.vercel.app",
+    # "https://dominio-futuro.com"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://52.207.147.127:8000"],
+    allow_origins=origenes_permitidos,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(IntegrityError)
+async def integrity_error_handler(request: Request, exc: IntegrityError):
+    return JSONResponse(
+        status_code=409,
+        content={
+            "detail": "Conflicto de integridad: revisa que las referencias "
+                      "(raza, cliente, vacuna, bovino, etc.) existan y que "
+                      "no se esté duplicando un valor único."
+        },
+    )
+
 
 app.include_router(auth_router, prefix="/api/auth", tags=["Autenticación"])
 app.include_router(usuarios_router, prefix="/api/usuarios", tags=["Usuarios"])
@@ -62,7 +82,7 @@ app.include_router(router_crias, prefix="/api/crias", tags=["Reproductivo"])
 @app.get("/")
 def root():
     return {
-        "status": "online", 
-        "proyecto": "Vaca Cúbica", 
+        "status": "online",
+        "proyecto": "Vaca Cúbica",
         "mensaje": "El motor Zero Trust está operativo."
     }

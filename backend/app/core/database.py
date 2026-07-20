@@ -22,8 +22,19 @@ AsyncSessionLocal = async_sessionmaker(
 Base = declarative_base()
 
 async def get_db():
+    """
+    Dependencia de sesión por petición.
+    ANTES: si un commit fallaba (ej. IntegrityError), el 'finally' cerraba la
+    sesión sin hacer rollback explícito -> la excepción se propagaba con la
+    sesión en estado inconsistente. Ahora cualquier excepción dispara rollback
+    antes de cerrar, dejando la conexión limpia para el siguiente request que
+    tome esa conexión del pool.
+    """
     async with AsyncSessionLocal() as session:
         try:
             yield session
+        except Exception:
+            await session.rollback()
+            raise
         finally:
             await session.close()
