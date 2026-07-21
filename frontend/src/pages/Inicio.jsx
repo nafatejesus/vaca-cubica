@@ -1,4 +1,4 @@
-import {AlertTriangle, Clock} from "lucide-react";
+import { AlertTriangle, Clock } from "lucide-react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -15,21 +15,22 @@ import {
 } from "recharts";
 
 import StatCard from "../components/StatCard";
-import {useBovinos} from "../context/BovinosContext";
-import useEstadisticas, {CHART_COLORS} from "../hooks/useEstadisticas";
+import { useBovinos } from "../context/BovinosContext";
+import { useAuth } from "../context/AuthContext";
+import useEstadisticas, { CHART_COLORS } from "../hooks/useEstadisticas";
 import BovinoIcon from "../assets/bovino.png";
 import "./Inicio.css";
-import "../components/ChartPlaceholder.css"; // aporta la clase .chart-card usada abajo
+import "../components/ChartPlaceholder.css";
 
 const estadoVariant = {
-  cuarentena: {label: "Cuarentena", variant: "warning", dotColor: "#b45309"},
-  fallecido: {label: "Fallecido", variant: "danger", dotColor: "#e11d48"},
+  cuarentena: { label: "Cuarentena", variant: "warning", dotColor: "#b45309" },
+  fallecido: { label: "Fallecido", variant: "danger", dotColor: "#e11d48" },
 };
 
 const proximasVacunasRaw = [
-  {id: 1, idBovino: "B-001", detalle: "Brucelosis", fecha: "28 jun"},
-  {id: 2, idBovino: "B-002", detalle: "Aftosa", fecha: "02 jul"},
-  {id: 3, idBovino: "B-005", detalle: "Rabia", fecha: "10 jul"},
+  { id: 1, idBovino: "B-001", detalle: "Brucelosis", fecha: "28 jun" },
+  { id: 2, idBovino: "B-002", detalle: "Aftosa", fecha: "02 jul" },
+  { id: 3, idBovino: "B-005", detalle: "Rabia", fecha: "10 jul" },
 ];
 
 const actividadRecienteRaw = [
@@ -71,12 +72,13 @@ const formatoMXN = (valor) =>
   }).format(valor);
 
 const Inicio = () => {
-  const {bovinos, getBovinoByCodigo} = useBovinos();
-  const {bovinosPorEstado, pesoPorRaza, evolucionPeso, kpis} =
+  const { bovinos, getBovinoByCodigo } = useBovinos();
+  const { bovinosPorEstado, pesoPorRaza, evolucionPeso, kpis } =
     useEstadisticas();
+  const { user } = useAuth();
 
   const stats = [
-    {label: "Total Bovinos", value: bovinos.length, variant: "neutral"},
+    { label: "Total Bovinos", value: bovinos.length, variant: "neutral" },
     {
       label: "Activos",
       value: bovinos.filter((b) => b.estado === "activo").length,
@@ -126,14 +128,15 @@ const Inicio = () => {
         <div className="inicio-banner-date">
           {fecha.charAt(0).toUpperCase() + fecha.slice(1)}
         </div>
-        <h1>Buenos días, Pedro Pablo 👋</h1>
-        <p>Aquí está el resumen de tu rancho al día de hoy.</p>
+        <h1>Buenos días, {user?.username ?? "..."} 👋</h1>
         <div className="inicio-banner-tags">
-          <span className="inicio-tag">👑 Dueño</span>
+          <span className="inicio-tag">
+            {user?.rol === "dueño" ? "👑 Dueño" : "🤠 Capataz"}
+          </span>
         </div>
       </div>
 
-      <div className="stats-grid" style={{marginTop: "1.5rem"}}>
+      <div className="stats-grid" style={{ marginTop: "1.5rem" }}>
         {stats.map((stat) => (
           <StatCard
             key={stat.label}
@@ -162,7 +165,7 @@ const Inicio = () => {
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={evolucionPeso}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="mes" tick={{fontSize: 12}} />
+                <XAxis dataKey="mes" tick={{ fontSize: 12 }} />
                 <YAxis domain={["auto", "auto"]} />
                 <Tooltip />
                 <Line
@@ -170,7 +173,7 @@ const Inicio = () => {
                   dataKey="valor"
                   stroke={CHART_COLORS[0]}
                   strokeWidth={2}
-                  dot={{r: 3}}
+                  dot={{ r: 3 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -193,7 +196,7 @@ const Inicio = () => {
                 cx="50%"
                 cy="50%"
                 outerRadius={75}
-                label={({cantidad}) => cantidad}
+                label={({ cantidad }) => cantidad}
               >
                 {bovinosPorEstado.map((entry, index) => (
                   <Cell
@@ -222,7 +225,7 @@ const Inicio = () => {
                 <img
                   src={BovinoIcon}
                   alt="Bovino"
-                  style={{width: 16, height: 16}}
+                  style={{ width: 16, height: 16 }}
                 />
               </span>
               <div>
@@ -231,7 +234,7 @@ const Inicio = () => {
                 <div className="alert-item-meta">
                   <span
                     className="alert-status-dot"
-                    style={{backgroundColor: a.dotColor}}
+                    style={{ backgroundColor: a.dotColor }}
                   />
                   {a.label}
                 </div>
@@ -261,7 +264,7 @@ const Inicio = () => {
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={pesoPorRaza}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="raza" tick={{fontSize: 11}} />
+              <XAxis dataKey="raza" tick={{ fontSize: 11 }} />
               <YAxis />
               <Tooltip />
               <Bar
@@ -297,7 +300,7 @@ const Inicio = () => {
                 <img
                   src={BovinoIcon}
                   alt="Bovino"
-                  style={{width: 16, height: 16}}
+                  style={{ width: 16, height: 16 }}
                 />
               </span>
               <div>

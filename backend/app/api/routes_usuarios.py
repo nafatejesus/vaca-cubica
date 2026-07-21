@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List
 
 from app.core.database import get_db
 from app.schemas.usuario import UsuarioCreate, UsuarioUpdate, UsuarioResponse
@@ -12,7 +13,8 @@ router = APIRouter()
 @router.post("/", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED)
 async def registrar_usuario(
     user_in: UsuarioCreate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user: Usuario = Depends(get_current_dueño)
 ):
     """
     Registra un nuevo usuario en el sistema.
@@ -51,3 +53,14 @@ async def actualizar_usuario(
     updated_user = await crud_usuario.update_usuario(db, db_user=db_user, user_in=user_in)
     
     return updated_user
+
+@router.get("/", response_model=List[UsuarioResponse])
+async def listar_usuarios(
+    db: AsyncSession = Depends(get_db),
+    current_user: Usuario = Depends(get_current_dueño)
+):
+    return await crud_usuario.get_usuarios(db)
+
+@router.get("/me", response_model=UsuarioResponse)
+async def leer_usuario_actual(current_user: Usuario = Depends(get_current_user)):
+    return current_user

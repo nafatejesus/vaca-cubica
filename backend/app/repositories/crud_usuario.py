@@ -37,6 +37,10 @@ async def get_usuario_by_id(db: AsyncSession, user_id: int) -> Usuario | None:
     """
     return await db.get(Usuario, user_id)
 
+async def get_usuarios(db: AsyncSession) -> list[Usuario]:
+    result = await db.execute(select(Usuario).order_by(Usuario.username))
+    return result.scalars().all()
+
 async def update_usuario(db: AsyncSession, db_user: Usuario, user_in: UsuarioUpdate) -> Usuario:
     """
     Aplica una actualización parcial (PATCH).

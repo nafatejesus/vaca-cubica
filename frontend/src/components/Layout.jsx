@@ -10,8 +10,14 @@ import CatalogoIcon from "../assets/catalogo.png";
 import InicioIcon from "../assets/inicio.png";
 import AnaliticoIcon from "../assets/analitico.png";
 import VentasIcon from "../assets/ventas.png";
+import Usuarios from "../assets/usuarios.png";
+
+import { useAuth } from "../context/AuthContext";
 
 const Layout = () => {
+  const { user } = useAuth();
+  const esDueño = user?.rol === "dueño";
+
   const handleLogout = () => {
     logout();
     window.location.href = "/login";
@@ -52,18 +58,30 @@ const Layout = () => {
             </span>
             Catálogo
           </NavLink>
-          <NavLink to="/ventas" className="nav-item">
-            <span className="icon">
-              <img src={VentasIcon} alt="Ventas" />
-            </span>
-            Ventas & Clientes
-          </NavLink>
-          <NavLink to="/estadisticas" className="nav-item">
-            <span className="icon">
-              <img src={AnaliticoIcon} alt="Analítico" />
-            </span>
-            Analítico & Estadístico
-          </NavLink>
+          {esDueño && (
+            <NavLink to="/usuarios" className="nav-item">
+              <span className="icon">
+                <img src={Usuarios} alt="Usuarios" />
+              </span>
+              Usuarios
+            </NavLink>
+          )}
+          {esDueño && (
+            <NavLink to="/ventas" className="nav-item">
+              <span className="icon">
+                <img src={VentasIcon} alt="Ventas" />
+              </span>
+              Ventas & Clientes
+            </NavLink>
+          )}
+          {esDueño && (
+            <NavLink to="/estadisticas" className="nav-item">
+              <span className="icon">
+                <img src={AnaliticoIcon} alt="Analítico" />
+              </span>
+              Analítico & Estadístico
+            </NavLink>
+          )}
         </nav>
 
         <div className="sidebar-footer">

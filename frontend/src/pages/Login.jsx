@@ -1,30 +1,31 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {Mail, Lock} from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Mail, Lock } from "lucide-react";
 import Button from "../components/Button";
 import VacaCubicaLogo from "../assets/vaca-cubica-icon-sesion.png";
 import CowFieldImg from "../assets/vaca.png";
-import {login} from "../services/authService";
-import {useBovinos} from "../context/BovinosContext";
-import {useRazas} from "../context/RazasContext";
-import {useClientes} from "../context/ClientesContext";
-import {useCrias} from "../context/CriasContext";
-import {useAlimentos} from "../context/AlimentosContext";
-import {useVacunas} from "../context/VacunasContext";
+import { login } from "../services/authService";
+import { useBovinos } from "../context/BovinosContext";
+import { useRazas } from "../context/RazasContext";
+import { useClientes } from "../context/ClientesContext";
+import { useCrias } from "../context/CriasContext";
+import { useAlimentos } from "../context/AlimentosContext";
+import { useVacunas } from "../context/VacunasContext";
+import { useAuth } from "../context/AuthContext";
 import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const {refetch: refetchBovinos} = useBovinos();
-  const {refetch: refetchRazas} = useRazas();
-  const {refetch: refetchClientes} = useClientes();
-  const {refetch: refetchCrias} = useCrias();
-  const {refetch: refetchAlimentos} = useAlimentos();
-  const {refetch: refetchVacunas} = useVacunas();
+  const { refetch: refetchBovinos } = useBovinos();
+  const { refetch: refetchRazas } = useRazas();
+  const { refetch: refetchClientes } = useClientes();
+  const { refetch: refetchCrias } = useCrias();
+  const { refetch: refetchAlimentos } = useAlimentos();
+  const { refetch: refetchVacunas } = useVacunas();
+  const { refetchUser } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -45,6 +46,7 @@ const Login = () => {
         refetchCrias(),
         refetchAlimentos(),
         refetchVacunas(),
+        refetchUser(),
       ]);
       navigate("/");
     } catch (err) {
@@ -72,7 +74,7 @@ const Login = () => {
     <div className="login-page">
       <div
         className="login-image-side"
-        style={{backgroundImage: `url(${CowFieldImg})`}}
+        style={{ backgroundImage: `url(${CowFieldImg})` }}
       >
         <div className="login-brand">
           <img src={VacaCubicaLogo} alt="Vaca Cúbica" />
